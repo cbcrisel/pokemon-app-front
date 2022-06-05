@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  empty:boolean=false;
+  pokemons:any;
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
+    this.pokemons=JSON.parse(localStorage.getItem('pokemon')|| '{}');
+    console.log(this.pokemons);
+    if(this.pokemons!={}){
+      this.empty=true;
+      console.log("hij")
+    }
   }
 
 }

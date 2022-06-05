@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   pokemon:any;
   image:any;
   cardTitle:any;
+  searches:any[] =[];
   constructor(
     private _pokemonService: PokemonService
   ) { 
@@ -33,6 +34,8 @@ export class SearchComponent implements OnInit {
         this.pokemon = Response;
         this.loaded=true;
         this.image=this.pokemon.image;
+        this.searches.push(this.pokemon);
+        localStorage.setItem('pokemon',JSON.stringify(this.searches));
       },
       Error=>{
         console.log(Error.error);

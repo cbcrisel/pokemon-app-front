@@ -1,1 +1,12 @@
-<p>home works!</p>
+<div *ngIf="empty==true" class="form-group row">
+    
+    <h4 class="mt-3">Pokemon Buscados anteriormente</h4>
+    <div *ngFor="let item of pokemons" class="container">
+    <div  class="card m-5" style="width: 18rem;">
+        <img [src]="item.image" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+        </div>
+      </div>
+    </div>
+</div>
