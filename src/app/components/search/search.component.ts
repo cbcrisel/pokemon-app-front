@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { saveAs} from 'file-saver';
+import { NgForm } from '@angular/forms';
 import { PokemonService } from 'src/app/services/pokeapi/pokemon.service';
 
 @Component({
@@ -11,8 +13,6 @@ export class SearchComponent implements OnInit {
   pokemon:any;
   image:any;
   cardTitle:any;
-  imageShiny:any;
-  cardTitleShiny:any;
   constructor(
     private _pokemonService: PokemonService
   ) { 
@@ -21,25 +21,24 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  searchPoke(keyword:string){
+  download(){
+    saveAs(this.image,this.pokemon.name);
+  }
+  searchPoke(keyword:string,forma:NgForm){
     console.log(keyword);
-    this._pokemonService.getPokemon(keyword).subscribe(
+    console.log(forma.value.imageType);
+    this._pokemonService.getPokemon(keyword,forma.value.imageType).subscribe(
       (Response:any)=>{
         console.log(Response);
         this.pokemon = Response;
         this.loaded=true;
-        this.image=this.pokemon.sprites.front_default;
-        this.cardTitle=this.pokemon.name;
-        this.imageShiny=this.pokemon.sprites.front_shiny;
-        this.cardTitleShiny=this.pokemon.name+' shiny';
+        this.image=this.pokemon.image;
       },
       Error=>{
         console.log(Error.error);
         this.loaded=true;
         this.image='../../../assets/noimage.png';
         this.cardTitle='Pokemon not found';
-        this.imageShiny='../../../assets/noimage.png';
-        this.cardTitleShiny='Pokemon not found';
       }
     );
   }

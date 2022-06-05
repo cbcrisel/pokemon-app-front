@@ -11,8 +11,8 @@ export class PokemonService {
   
   ) { }
 
-  getPokemon(keyword:string){
-    const url = `https://pokeapi.co/api/v2/pokemon/${keyword}`;
+  getPokemon(keyword:string,imageType:string){
+    const url = `http://localhost:3000/api/v1/images/pokemons?name=${keyword}&imageType=${imageType}`;
     return this.http.get(url);
   }
 }
